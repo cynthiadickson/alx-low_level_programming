@@ -29,7 +29,7 @@ int main(void)
 	res = infinite_add(n, m, r2, 10);
 	if (res == 0)
 	{
-		printf("Error\n");
+		printf("error\n");
 	}
 	else
 	{
@@ -44,7 +44,6 @@ int main(void)
 	}
 	else
 	{
-
 		printf("%s + %s = %s\n", n, m, res);
 	}
 	res = infinite_add(n, m, r3, 11);
@@ -52,9 +51,11 @@ int main(void)
 	{
 		printf("Error\n");
 	}
-	else
+	else 
 	{
 		printf("%s + %s = %s\n", n, m, res);
 	}
 	return (0);
 }
+
+
