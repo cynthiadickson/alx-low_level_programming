@@ -1,55 +1,47 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <time.h>
-#include <unistd.h>
-
 /**
- * main - Create a program that generates random valid passwords
- * Return: Always 0 (Success)
+ * main - generates keygen.
+ * Return: 0 Always.
  */
 int main(void)
 {
-	printf("Length: ");
+	char password[84];
+	int index = 0, sum = 0, diff_half1, diff_half2;
 
-	int length;
-	scanf("%d", &length);
+	srand(time(0));
+	while (sum < 2772)
 
-	if (length <= 0)
 	{
-		printf("Password length must be >= 1!");
-		return 1;
+		password[index] = 33 + rand() % 94;
+		sum += password[index++];
 	}
-	char *password = malloc(length + 1);
+	password[index] = '\0';
 
-	char *digits = "0123456789";
-	int digits_length = strlen(digits);
-
-	char *lowers = "abcdefghijklmnopqrstuvwxyz";
-	int lowers_length = strlen(lowers);
-
-	char *uppers = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	int uppers_length = strlen(uppers);
-
-	char *symbols = "!@#$%^&*()";
-	int symbols_length = strlen(symbols);
-
-	srand(time(NULL) * getpid());
-	for (int i = 0; i < length; i++)
+	if (sum != 2772)
 	{
-	
-		int char_type = rand() % 4;
-		if (char_type == 0)
-			password[i] = digits[rand() % digits_length];
-		else if (char_type == 1)
-			password[i] = lowers[rand() % lowers_length];
-		else if (char_type == 2)
-			password[i] = uppers[rand() % uppers_length];
-		else 
-			password[i] = symbols[rand() % symbols_length];
+		diff_half1 = (sum - 2772) / 2;
+		diff_half2 = (sum - 2772) / 2;
+
+		if ((sum - 2772) % 2 != 0)
+			diff_half1++;
+		for (index = 0; password[index]; index++)
+		{
+			if (password[index] >= (33 + diff_half1))
+			{
+				password[index] -= diff_half1;
+				break;
+			}
+		}
+		for (index = 0; password[index]; index++)
+		{
+			if (password[index] >= (33 + diff_half2))
+
+				password[index] -= diff_half2;
+			break;
+		}
 	}
-	password[length] = '\0';
-	printf("Password: %s\n", password);
-	free(password);
-	return 0;
+	printf("%s", password);
+	return (0);
 }
